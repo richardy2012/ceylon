@@ -2006,7 +2006,8 @@ public class GenerateJsVisitor extends Visitor {
     String memberAccess(final Tree.StaticMemberOrTypeExpression expr, String lhs) {
         Declaration decl = expr.getDeclaration();
         String plainName = null;
-        if (decl == null && isInDynamicBlock()) {
+        if (decl == null && isInDynamicBlock()
+            || decl instanceof TypedDeclaration && ((TypedDeclaration)decl).isDynamicallyTyped()) {
             plainName = expr.getIdentifier().getText();
         }
         else if (TypeUtils.isNativeJs(decl)) {
