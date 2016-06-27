@@ -614,6 +614,9 @@ public class JsonPackage extends LazyPackage {
         if (m.containsKey("var")) {
             ((Value)d).setVariable(true);
         }
+        if (m.containsKey(KEY_DYNAMIC)) {
+            d.setDynamicallyTyped(true);
+        }
         @SuppressWarnings("unchecked")
         final Map<String,Object> ktype = (Map<String,Object>)m.get(KEY_TYPE);
         d.setType(getTypeFromJson(ktype, parent instanceof Declaration ? (Declaration)parent : null, typeParameters));
@@ -629,6 +632,9 @@ public class JsonPackage extends LazyPackage {
             if (parent == this) {
                 u2.addDeclaration(s);
                 addMember(null);
+            }
+            if (m.containsKey(KEY_DYNAMIC)) {
+                s.setDynamicallyTyped(true);
             }
             @SuppressWarnings("unchecked")
             final Map<String,Object> sanns = (Map<String,Object>)smap.remove(KEY_ANNOTATIONS);
